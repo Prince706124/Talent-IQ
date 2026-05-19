@@ -3,11 +3,19 @@ import path from "path";
 import { ENV } from "./lib/env.js";
 import { mongo } from "mongoose";
 import { connectDB } from "./lib/db.js";
+import { serve } from "inngest/express";
+import cors from "cors";
+import { inngest } from "./lib/inngest.js";
 const app = express();
 
 const dirname = path.resolve();
 console.log(ENV.PORT);
 console.log(ENV.DB_URL);
+
+//credentials:true ? meaning => server allow a browsers to include cookies on request
+app.use(express.json());
+app.use(cors({ origin: ENV.CLIENT_URL, credentials: true }));
+app.use("/api/inngest", serve({ client: inngest, functions }));
 
 app.get("/books", (req, res) => {
   res.status(200).json({ msg: "sucess from api" });
