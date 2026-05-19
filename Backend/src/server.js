@@ -23,12 +23,12 @@ app.use("/api/inngest", serve({ client: inngest, functions }));
 app.use("/api/chat", chatRoutes);
 
 app.get("/books", (req, res) => {
-  res.status(200).json({ msg: "sucess from api" });
+  res.status(200).json({ message: "sucess from api" });
 });
 
 //when you pass an array of middleware to express ,it automatically flatten and executes then sequentially one by one
 // app.get("/video-calls", protectRoute, (req, res) => {
-//   res.status(200).json({ msg: "this is a protected route for video calls" });
+//   res.status(200).json({ message: "this is a protected route for video calls" });
 // });
 
 if (ENV.NODE_ENV === "production") {
