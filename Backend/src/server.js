@@ -9,6 +9,7 @@ import { inngest, functions } from "./lib/inngest.js";
 import { clerkMiddleware } from "@clerk/express";
 import { protectRoute } from "./Middleware/protectRoute.js";
 import chatRoutes from "./Routes/chatRoutes.js";
+import sessionRoutes from "./Routes/sessionRoutes.js";
 const app = express();
 
 const dirname = path.resolve();
@@ -21,6 +22,7 @@ app.use(cors({ origin: ENV.CLIENT_URL, credentials: true }));
 app.use(clerkMiddleware()); //this add auth filed to request : req.auth();
 app.use("/api/inngest", serve({ client: inngest, functions }));
 app.use("/api/chat", chatRoutes);
+app.use("/api/sessions", sessionRoutes);
 
 app.get("/books", (req, res) => {
   res.status(200).json({ message: "sucess from api" });

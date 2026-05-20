@@ -42,4 +42,6 @@ const deleteUserFromDB = inngest.createFunction(
   },
 );
 
+//challeng - send a welcome Email after singup
+
 export const functions = [syncUser, deleteUserFromDB];
