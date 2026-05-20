@@ -100,6 +100,12 @@ export async function joinSession(req, res) {
     if (!session) {
       return res.status(404).json({ message: "Session not found" });
     }
+    if (session.status === "completed")
+      return res.status(400).json({ message: "Session already completed" });
+    if (session.host.toString() === userId.toString())
+      return res
+        .status(400)
+        .json({ message: "You cannot join your own session" });
 
     if (session.participant)
       return res.status(400).json({ message: "Session is full" });
@@ -127,14 +133,14 @@ export async function endSession(req, res) {
       return res.status(403).json({ message: "Unauthorized" });
     if (session.status === "completed")
       return res.status(400).json({ message: "Session already completed" });
-    session.status = "completed";
-    await session.save();
 
     const call = streamClient.video.call("default", session.callId);
     await call.delete({ hard: true });
 
     const channel = chatClient.channel("messaging", session.callId);
     await channel.delete();
+    session.status = "completed";
+    await session.save();
     res.status(200).json({ session });
   } catch (error) {
     console.log("error in endSession", error);
