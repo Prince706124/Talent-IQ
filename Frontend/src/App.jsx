@@ -8,6 +8,7 @@ import { Navigate, Routes, Route } from "react-router";
 import HomePage from "./Pages/HomePage";
 import AboutPage from "./Pages/AboutPage";
 import ProblemPage from "./Pages/ProblemPage";
+import DashboardPage from "./Pages/DashboardPage";
 import { Toaster } from "react-hot-toast";
 
 function App() {
@@ -30,7 +31,7 @@ function App() {
         ></Route>
         <Route path="/about" element={<AboutPage />}></Route>
         <Route
-          path="/problem"
+          path="/problems"
           element={isSignedIn ? <ProblemPage /> : <Navigate to={"/"} />}
         ></Route>
       </Routes>
