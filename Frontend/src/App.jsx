@@ -11,11 +11,23 @@ import ProblemPage from "./Pages/ProblemPage";
 import { Toaster } from "react-hot-toast";
 
 function App() {
-  const { isSignedIn } = useUser();
+  const { isSignedIn, isLoaded } = useUser();
+
+  if (!isLoaded) {
+    return null;
+  }
+
   return (
     <>
       <Routes>
-        <Route path="/" element={<HomePage />}></Route>
+        <Route
+          path="/"
+          element={!isSignedIn ? <HomePage /> : <Navigate to="/dashboard" />}
+        ></Route>
+        <Route
+          path="/dashboard"
+          element={isSignedIn ? <DashboardPage /> : <Navigate to="/" />}
+        ></Route>
         <Route path="/about" element={<AboutPage />}></Route>
         <Route
           path="/problem"
