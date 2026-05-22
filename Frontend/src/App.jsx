@@ -7,8 +7,9 @@ import {
 import { Navigate, Routes, Route } from "react-router";
 import HomePage from "./Pages/HomePage";
 import AboutPage from "./Pages/AboutPage";
-import ProblemPage from "./Pages/ProblemPage";
+import ProblemsPage from "./Pages/ProblemsPage";
 import DashboardPage from "./Pages/DashboardPage";
+import ProblemPage from "./Pages/ProblemPage";
 import { Toaster } from "react-hot-toast";
 
 function App() {
@@ -29,9 +30,12 @@ function App() {
           path="/dashboard"
           element={isSignedIn ? <DashboardPage /> : <Navigate to="/" />}
         ></Route>
-        <Route path="/about" element={<AboutPage />}></Route>
         <Route
           path="/problems"
+          element={isSignedIn ? <ProblemsPage /> : <Navigate to={"/"} />}
+        ></Route>
+        <Route
+          path="/problem/:id"
           element={isSignedIn ? <ProblemPage /> : <Navigate to={"/"} />}
         ></Route>
       </Routes>
