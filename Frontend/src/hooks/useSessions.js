@@ -81,6 +81,23 @@ export const useJoinSession = () => {
   return result;
 };
 
+export const useLeaveSession = () => {
+  const { getToken } = useAuth();
+
+  const result = useMutation({
+    mutationKey: ["leaveSession"],
+    mutationFn: async (id) => {
+      const token = await getToken();
+      return sessionApi.leaveSession(id, token);
+    },
+    onSuccess: () => toast.success("Left session successfully!"),
+    onError: (error) =>
+      toast.error(error.response?.data?.message || "Failed to leave session"),
+  });
+
+  return result;
+};
+
 export const useEndSession = () => {
   const { getToken } = useAuth();
 

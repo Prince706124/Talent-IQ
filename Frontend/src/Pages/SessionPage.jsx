@@ -5,6 +5,7 @@ import useCodeSync from "../hooks/useCodeSync.js";
 import {
   useEndSession,
   useJoinSession,
+  useLeaveSession,
   useSessionById,
 } from "../hooks/useSessions";
 import { PROBLEMS } from "../data/problems";
@@ -34,6 +35,7 @@ function SessionPage() {
   } = useSessionById(id);
 
   const joinSessionMutation = useJoinSession();
+  const leaveSessionMutation = useLeaveSession();
   const endSessionMutation = useEndSession();
 
   const session = sessionData?.session;
@@ -102,6 +104,22 @@ function SessionPage() {
     const result = await executeCode(selectedLanguage, code);
     setOutput(result);
     setIsRunning(false);
+  };
+
+  const handleLeaveSession = async () => {
+    if (!isParticipant) return;
+
+    return new Promise((resolve) => {
+      leaveSessionMutation.mutate(id, {
+        onSuccess: () => {
+          refetch();
+          resolve(true);
+        },
+        onError: () => {
+          resolve(false);
+        },
+      });
+    });
   };
 
   const handleEndSession = () => {
@@ -327,7 +345,11 @@ function SessionPage() {
                 <div className="h-full">
                   <StreamVideo client={streamClient}>
                     <StreamCall call={call}>
-                      <VideoCallUI chatClient={chatClient} channel={channel} />
+                      <VideoCallUI
+                        chatClient={chatClient}
+                        channel={channel}
+                        onLeave={handleLeaveSession}
+                      />
                     </StreamCall>
                   </StreamVideo>
                 </div>

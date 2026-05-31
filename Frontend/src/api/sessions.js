@@ -38,6 +38,12 @@ export const sessionApi = {
     });
     return response.data;
   },
+  leaveSession: async (id, token) => {
+    const response = await axiosInstance.post(`/sessions/${id}/leave`, null, {
+      headers: buildHeaders(token),
+    });
+    return response.data;
+  },
   endSession: async (id, token) => {
     const response = await axiosInstance.post(`/sessions/${id}/end`, null, {
       headers: buildHeaders(token),
