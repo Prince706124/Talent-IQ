@@ -1,5 +1,7 @@
 import { io } from "socket.io-client";
 
-export const socket = io("https://talent-iq-xa1d.onrender.com", {
+const socketUrl = import.meta.env.VITE_API_URL || window.location.origin;
+
+export const socket = io(socketUrl, {
   withCredentials: true,
 });
