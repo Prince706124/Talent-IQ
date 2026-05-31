@@ -31,13 +31,17 @@ function useStreamClient(session, loadingSession, isHost, isParticipant) {
         const userName = response.userName || response.name;
         const userImage = response.userImage || response.image;
 
+        if (!videoToken || !chatToken || !userId) {
+          throw new Error("Invalid stream token response");
+        }
+
         const client = await initializeStreamClient(
           {
             id: userId,
             name: userName,
             image: userImage,
           },
-          token,
+          videoToken,
         );
 
         setStreamClient(client);

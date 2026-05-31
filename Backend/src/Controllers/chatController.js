@@ -2,19 +2,24 @@ import { chatClient, streamClient } from "../lib/stream.js";
 
 export async function getStreamToken(req, res) {
   try {
-    // use clerkId for stream (not mongodb_id) => it should match the id we have in stream dashboard
+    const clerkId = req.user?.clerkId || req.auth?.userId;
+    if (!clerkId) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+
+    const userId = clerkId.toString();
     const videoToken = streamClient.generateUserToken({
-      user_id: req.user.clerkId.toString(),
+      user_id: userId,
     });
-    const chatToken = chatClient.createToken(req.user.clerkId.toString());
+    const chatToken = chatClient.createToken(userId);
 
     res.status(200).json({
       token: videoToken,
       videoToken,
       chatToken,
-      userId: req.user.clerkId,
-      userName: req.user.name,
-      userImage: req.user.profileImage,
+      userId,
+      userName: req.user?.name || "",
+      userImage: req.user?.profileImage || "",
     });
   } catch (error) {
     console.log(error);
