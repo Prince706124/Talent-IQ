@@ -1,6 +1,7 @@
 import { useUser } from "@clerk/clerk-react";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
+import useCodeSync from "../hooks/useCodeSync.js";
 import {
   useEndSession,
   useJoinSession,
@@ -52,6 +53,14 @@ function SessionPage() {
     problemData?.starterCode?.[selectedLanguage] || "",
   );
 
+  const { id: sessionId } = useParams();
+
+  const { syncCode, syncLanguage } = useCodeSync({
+    sessionId,
+    setCode,
+    setSelectedLanguage,
+  });
+
   // auto-join session if user is not already a participant and not the host
   useEffect(() => {
     if (!session || !user || loadingSession) return;
@@ -79,6 +88,7 @@ function SessionPage() {
   const handleLanguageChange = (e) => {
     const newLang = e.target.value;
     setSelectedLanguage(newLang);
+    syncLanguage(newLang);
     // use problem-specific starter code
     const starterCode = problemData?.starterCode?.[newLang] || "";
     setCode(starterCode);
@@ -269,7 +279,10 @@ function SessionPage() {
                       code={code}
                       isRunning={isRunning}
                       onLanguageChange={handleLanguageChange}
-                      onCodeChange={(value) => setCode(value)}
+                      onCodeChange={(value) => {
+                        setCode(value);
+                        syncCode(value);
+                      }}
                       onRunCode={handleRunCode}
                     />
                   </Panel>

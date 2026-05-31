@@ -65,11 +65,36 @@ class Solution {
         System.out.println(Arrays.toString(twoSum(new int[]{3, 3}, 6))); // Expected: [0, 1]
     }
 }`,
+      cpp: `#include <bits/stdc++.h>
+using namespace std;
+
+vector<int> twoSum(vector<int>& nums, int target) {
+    // Write your solution here
+
+    return {};
+}
+
+int main() {
+    vector<int> nums1 = {2,7,11,15};
+    vector<int> nums2 = {3,2,4};
+    vector<int> nums3 = {3,3};
+
+    auto ans1 = twoSum(nums1, 9);
+    auto ans2 = twoSum(nums2, 6);
+    auto ans3 = twoSum(nums3, 6);
+
+    cout << "[" << ans1[0] << "," << ans1[1] << "]" << endl;
+    cout << "[" << ans2[0] << "," << ans2[1] << "]" << endl;
+    cout << "[" << ans3[0] << "," << ans3[1] << "]" << endl;
+
+    return 0;
+}`,
     },
     expectedOutput: {
       javascript: "[0,1]\n[1,2]\n[0,1]",
       python: "[0, 1]\n[1, 2]\n[0, 1]",
       java: "[0, 1]\n[1, 2]\n[0, 1]",
+      cpp: "[0,1]\n[1,2]\n[0,1]",
     },
   },
 
@@ -139,11 +164,36 @@ class Solution {
         System.out.println(Arrays.toString(test2)); // Expected: [h, a, n, n, a, H]
     }
 }`,
+      cpp: `#include <bits/stdc++.h>
+using namespace std;
+
+void reverseString(vector<char>& s) {
+    // Write your solution here
+}
+
+int main() {
+    vector<char> test1 = {'h','e','l','l','o'};
+    reverseString(test1);
+
+    for(char c : test1)
+        cout << c;
+    cout << endl;
+
+    vector<char> test2 = {'H','a','n','n','a','h'};
+    reverseString(test2);
+
+    for(char c : test2)
+        cout << c;
+    cout << endl;
+
+    return 0;
+}`,
     },
     expectedOutput: {
       javascript: '["o","l","l","e","h"]\n["h","a","n","n","a","H"]',
       python: "['o', 'l', 'l', 'e', 'h']\n['h', 'a', 'n', 'n', 'a', 'H']",
       java: "[o, l, l, e, h]\n[h, a, n, n, a, H]",
+      cpp: "olleh\nhannaH",
     },
   },
 
@@ -211,11 +261,30 @@ print(isPalindrome(" "))  # Expected: True`,
         System.out.println(isPalindrome(" ")); // Expected: true
     }
 }`,
+      cpp: `#include <bits/stdc++.h>
+using namespace std;
+
+bool isPalindrome(string s) {
+    // Write your solution here
+
+    return false;
+}
+
+int main() {
+    cout << boolalpha;
+
+    cout << isPalindrome("A man, a plan, a canal: Panama") << endl;
+    cout << isPalindrome("race a car") << endl;
+    cout << isPalindrome(" ") << endl;
+
+    return 0;
+}`,
     },
     expectedOutput: {
       javascript: "true\nfalse\ntrue",
       python: "True\nFalse\nTrue",
       java: "true\nfalse\ntrue",
+      cpp: "true\nfalse\ntrue",
     },
   },
 
@@ -277,11 +346,32 @@ print(maxSubArray([5,4,-1,7,8]))  # Expected: 23`,
         System.out.println(maxSubArray(new int[]{5,4,-1,7,8})); // Expected: 23
     }
 }`,
+      cpp: `#include <bits/stdc++.h>
+using namespace std;
+
+int maxSubArray(vector<int>& nums) {
+    // Write your solution here
+
+    return 0;
+}
+
+int main() {
+    vector<int> nums1 = {-2,1,-3,4,-1,2,1,-5,4};
+    vector<int> nums2 = {1};
+    vector<int> nums3 = {5,4,-1,7,8};
+
+    cout << maxSubArray(nums1) << endl;
+    cout << maxSubArray(nums2) << endl;
+    cout << maxSubArray(nums3) << endl;
+
+    return 0;
+}`,
     },
     expectedOutput: {
       javascript: "6\n1\n23",
       python: "6\n1\n23",
       java: "6\n1\n23",
+      cpp: "6\n1\n23",
     },
   },
 
@@ -339,11 +429,30 @@ print(maxArea([1,1]))  # Expected: 1`,
         System.out.println(maxArea(new int[]{1,1})); // Expected: 1
     }
 }`,
+      cpp: `#include <bits/stdc++.h>
+using namespace std;
+
+int maxArea(vector<int>& height) {
+    // Write your solution here
+
+    return 0;
+}
+
+int main() {
+    vector<int> h1 = {1,8,6,2,5,4,8,3,7};
+    vector<int> h2 = {1,1};
+
+    cout << maxArea(h1) << endl;
+    cout << maxArea(h2) << endl;
+
+    return 0;
+}`,
     },
     expectedOutput: {
       javascript: "49\n1",
       python: "49\n1",
       java: "49\n1",
+      cpp: "49\n1",
     },
   },
 };
@@ -363,5 +472,10 @@ export const LANGUAGE_CONFIG = {
     name: "Java",
     icon: "/java.png",
     monacoLang: "java",
+  },
+  cpp: {
+    name: "C++",
+    icon: "/cpp.png",
+    monacoLang: "cpp",
   },
 };
