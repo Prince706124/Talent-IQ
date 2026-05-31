@@ -3,11 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "main": "src/server.js",
+  "type": "module",
   "scripts": {
     "dev": "nodemon src/server.js",
     "start": "node src/server.js"
   },
-  "type": "module",
+  "engines": {
+    "node": "20.x"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -20,8 +23,7 @@
     "inngest": "^3.44.3",
     "mongoose": "^8.19.1",
     "socket.io": "^4.8.3",
-    "stream-chat": "^9.24.0",
-    "talentiq": "file:.."
+    "stream-chat": "^9.24.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.10"
