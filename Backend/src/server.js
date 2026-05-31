@@ -2,6 +2,7 @@ import http from "http";
 import { Server } from "socket.io";
 
 import express from "express";
+import fs from "fs";
 import path from "path";
 import { ENV } from "./lib/env.js";
 import { mongo } from "mongoose";
@@ -69,10 +70,13 @@ app.get("/books", (req, res) => {
 //   res.status(200).json({ message: "this is a protected route for video calls" });
 // });
 
-if (ENV.NODE_ENV === "production") {
-  app.use(express.static(path.join(dirname, "../Frontend/dist")));
+const frontendDistPath = path.join(dirname, "../Frontend/dist");
+const frontendIndex = path.join(frontendDistPath, "index.html");
+
+if (fs.existsSync(frontendIndex)) {
+  app.use(express.static(frontendDistPath));
   app.get("/*", (req, res) => {
-    res.sendFile(path.join(dirname, "../Frontend/dist/index.html"));
+    res.sendFile(frontendIndex);
   });
 }
 
